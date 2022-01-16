@@ -8,11 +8,14 @@ class ArgHandler():
     project_path = "./"
     line_counter = 0
     args = []
+    folderReader = FolderReader([],[],["./.git","./src/__pycache__"])
 
     def __init__(self,args):
         self.args= args
-        FolderReader.valid_sufix=self.getValidSufixes()
+        self.folderReader.valid_sufix=self.readArgs("-su")
         self.get_path()
+        self.folderReader.ignore_folders= self.readArgs("-if")
+        self.folderReader.ignore_sufix= self.readArgs("-isu")
         if(len(args)==1):
             self.printHelp()
         for arg in args:
@@ -22,7 +25,23 @@ class ArgHandler():
                 self.printTotalLines()
             if(arg=="-lf"):
                 self.printFilesWithLines()
-    
+
+
+    def readArgs(self,tag):
+        sufixreader = False
+        sufixes = []
+
+        for arg in self.args:
+            if("-" in arg):
+                sufixreader = False
+                if(arg == tag):
+                    sufixreader = True
+                    continue
+            if(sufixreader==True):
+                sufixes.append(arg)
+
+        return sufixes
+
     def get_path(self):
         i = 1
         for arg in self.args:
@@ -30,25 +49,15 @@ class ArgHandler():
                 self.setPath(self.args[i])
             i+=1
     
-    def getValidSufixes(self):
-        sufixreader = False
-        sufixes = []
-
-        for arg in self.args:
-            if(sufixreader==True):
-                sufixes.append(arg)
-            if("-" in arg):
-                sufixereader = False
-                if(arg == "-su"):
-                    sufixreader = True
-        return sufixes
 
     def printHelp(self):
         print()
         print("-l prints the total amount of lines")
         print("-p sets the origin path")
-        print("-su followed file extensions (.py .txt) if you want to specify which files to list+")
         print("-lf prints all files with it's lines counts")
+        print("-su followed file extensions (.py .txt) if you want to specify which files to list+")
+        print("-if followed by foldersoruces will ignore the folders (./folder/) ")
+        print("-isu followed by suffixes will ignore the files with that suffixes")
         print()
         print("example 1: -l -su .py")
         print("         will print total lines of all .py files")
@@ -63,12 +72,12 @@ class ArgHandler():
         print("         will print files with total lines of all files")
 
     def printTotalLines(self):
-        for file in FolderReader.readFolder(self.project_path):
+        for file in self.folderReader.readFolder(self.project_path):
             self.line_counter += file.linecount
         print("total: "+str(self.line_counter))
 
     def printFilesWithLines(self):
-        for file in FolderReader.readFolder(self.project_path):
+        for file in self.folderReader.readFolder(self.project_path):
             print(file)
             self.line_counter += file.linecount
         print("total: "+str(self.line_counter))
