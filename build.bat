@@ -16,7 +16,7 @@ pyinstaller --onefile ./src/main.py
 mkdir %HOMEPATH%\Linecounter\
 copy .\dist\main.exe %HOMEPATH%\Linecounter\Linecounter.exe
 
-setx /M newpath %HOMEDRIvE%%HOMEPATH%\Linecounter\
+setx /M Linecounter "%path%;%HOMEDRIVE%%HOMEPATH%\Linecounter\"
 
 echo "Installation at %HOMEPATH%\Linecounter\ completed"
 echo "Thank you for installing Linecounter!"
