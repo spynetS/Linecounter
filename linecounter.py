@@ -2,13 +2,6 @@ import os
 import pathlib
 import sys
 
-'''
-total lines -a or nothing
-help -h
-lines in every file -af
-only file type -su
-'''
-
 class FileClass:
     linecount = 0
     filename = ""
@@ -21,8 +14,7 @@ class FileClass:
     def __str__(self):
         return ("filename: "+self.filename+" linecount: "+str(self.linecount))
 
-
-project_path = ""
+project_path = "./"
 line_counter = 0
 valid_sufix = []
 
@@ -63,6 +55,7 @@ def getValidSufixes():
 def printHelp():
     print()
     print("-l prints the total amount of lines")
+    print("-p sets the origin path")
     print("-su followed file extensions (.py .txt) if you want to specify which files to list+")
     print("-lf prints all files with it's lines counts")
     print()
@@ -80,23 +73,27 @@ def printHelp():
 
 def printTotalLines():
     global line_counter
-    for file in readFolder("./"):
+    for file in readFolder(project_path):
         line_counter += file.linecount
     print("total: "+str(line_counter))
 
 def printFilesWithLines():
     global line_counter
-    for file in readFolder("./"):
+    for file in readFolder(project_path):
         print(file)
         line_counter += file.linecount
     print("total: "+str(line_counter))
-    
+
+def setPath(path):
+    global project_path
+    project_path = path
+
 def argHandler():
     global valid_sufix
     valid_sufix=getValidSufixes()
     if(len(sys.argv)==1):
         printHelp()
-        
+    i=1        
     for arg in sys.argv:
         if(arg=="-h"):
             printHelp()
@@ -104,6 +101,9 @@ def argHandler():
             printTotalLines()
         if(arg=="-lf"):
             printFilesWithLines()
+        if(arg =="-p"):
+            setPath(sys.argv[i])
+        i+=1
 
 if(__name__=="__main__"):
     argHandler()
