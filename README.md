@@ -9,7 +9,7 @@ Linecounter is a small python program that helps you count the amount of lines i
 ## Getting Started
 
 ### Dependencies
-
+* Python3 (inlcuding pip)
 * Windows, Linux, Mac
 
 ### Installing
