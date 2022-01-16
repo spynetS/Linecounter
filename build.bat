@@ -1,7 +1,5 @@
 
 :: This is a bash file to help you build the project
-:: The file to start when build is done is the Linecounter that will appear in the source folder (not src)
-:: You might have to do chmod 755 ./build.bash to run this script
 
 SET mypath=%~dp0
 echo %mypath:~0,-1%
