@@ -1,13 +1,4 @@
 # Linecounter
-Linecounter is a simple python program to count your lines of your source code in your project
-
-Use
-//Linux
-After cloning the project run the build.bash
-this will install the binarys in the /user/bin folder
-Then just call Linecounter in your terminal
-
-# Linecounter
 
 Linecounter is a simple python program to count your lines of your source code in your project
 
@@ -22,10 +13,15 @@ Linecounter is a small python program that helps you count the amount of lines i
 * Windows, Linux, Mac
 
 ### Installing
-###Linux
+* Linux
 [Download](https://github.com/spynetS/Linecounter.git) the src code and and run the build.bash file
-This will create the binarys and place them in the /usr/bin folder and set the environment variable
+This will create the binary and place it in the /usr/bin folder and set the environment variable
 so you only need to write Linecounter in your terminal
+
+* Windows
+[Download](https://github.com/spynetS/Linecounter.git) the src code and and run the build.bat file
+This will create the binary and place it in the C:/User/user/Linecounter folder and create a environment varable (Linecounter)
+that you have to copy the value and and adding it to the path varable
 
 ### Executing program
 
