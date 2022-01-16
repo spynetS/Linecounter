@@ -3,11 +3,14 @@ import pathlib
 import sys
 
 '''
-total lines -a or nothing
+total lines -l or nothing
 help -h
-lines in every file -af
+lines in every file -lf print(like a tree?)
 only file type -su
+
 '''
+
+
 
 class FileClass:
     linecount = 0
