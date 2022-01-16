@@ -1,7 +1,7 @@
 import os
 import pathlib
-from src.FileClass import FileClass
-from src.folderReader import FolderReader
+from FileClass import FileClass
+from folderReader import FolderReader
 
 class ArgHandler():
     

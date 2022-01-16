@@ -1,6 +1,6 @@
 import os
 import pathlib
-from src.FileClass import FileClass
+from FileClass import FileClass
 
 
 class FolderReader:

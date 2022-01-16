@@ -1,5 +1,5 @@
 import sys
-from src.argHandler import ArgHandler
+from argHandler import ArgHandler
 
 
 if(__name__=="__main__"):
