@@ -78,8 +78,13 @@ class ArgHandler():
 
     def printFilesWithLines(self):
         for file in self.folderReader.readFolder(self.project_path):
-            print(file.filename+((60-len(file.filename) if (60-len(file.filename)>0) else 1 )*" ")+str(file.linecount)+" lines")
+            
+            tab = 60-len(file.filename) if 60-len(file.filename)>0 else 1;
+            
+            print(file.filename+(tab*" ")+str(file.linecount)+" lines")
+            
             self.line_counter += file.linecount
+        
         print("total: "+str(self.line_counter))
 
     def setPath(self,path):
