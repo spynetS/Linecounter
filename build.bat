@@ -1,4 +1,4 @@
-
+@echo off
 :: This is a bash file to help you build the project
 
 SET mypath=%~dp0
