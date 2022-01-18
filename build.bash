@@ -7,9 +7,8 @@ pip install pyinstaller
 
 pyinstaller --onefile ./src/main.py
 
-cp ./dist/main ./Linecounter
-sudo cp ./dist/main /usr/bin/Linecounter
+sudo cp ./dist/main /usr/bin/linecounter
 
-export Linecounter=/user/bin/Linecounter 
+export linecounter=/user/bin/linecounter 
 
 echo "Thank you for installing Linecounter"
