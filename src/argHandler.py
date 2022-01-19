@@ -23,7 +23,7 @@ class ArgHandler():
                 self.printHelp()
             if (arg=="-l"):
                 self.printTotalLines()
-            if(arg=="-lf"):
+            if(arg=="-ld"):
                 self.printFilesWithLines()
 
 
@@ -54,9 +54,8 @@ class ArgHandler():
         print()
         print("-l prints the total amount of lines")
         print("-p sets the origin path")
-        print("-lf prints all files with it's lines counts")
         print("-su followed file extensions (.py .txt) if you want to specify which files to list+")
-        print("-if followed by foldersoruces will ignore the folders (./folder/) ")
+        print("-id followed by foldersoruces will ignore the folders (./folder/) ")
         print("-isu followed by suffixes will ignore the files with that suffixes")
         print()
         print("example 1: -l -su .py")

@@ -6,7 +6,7 @@ installPy ()
 {
     echo "Do you want to install python 3? (y/n)"
     read varname
-    if [[$varname = y]]
+    if [[ $varname = y* ]]
     then
         sudo apt update
         sudo apt install python3-pip
@@ -26,13 +26,7 @@ pip install pyinstaller
 
 PYINSTALLER=$(sudo find / -xdev -name "pyinstaller")
 
-echo $PYINSTALLER
-
- read -s -n 1 -p "Press any key to continue . . ."
- echo ""
-
 $PYINSTALLER --onefile ./src/main.py
-
 
 sudo cp ./dist/main /usr/bin/linecounter
 
