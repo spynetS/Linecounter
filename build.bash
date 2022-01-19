@@ -6,7 +6,7 @@ installPy ()
 {
     echo "Do you want to install python 3? (y/n)"
     read varname
-    if [$varname == "y"]
+    if [[$varname = y]]
     then
         sudo apt update
         sudo apt install python3-pip
