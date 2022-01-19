@@ -14,7 +14,7 @@ class ArgHandler():
         self.args= args
         self.folderReader.valid_sufix=self.readArgs("-su")
         self.get_path()
-        self.folderReader.ignore_folders= self.readArgs("-if")
+        self.folderReader.ignore_folders= self.readArgs("-id")
         self.folderReader.ignore_sufix= self.readArgs("-isu")
         if(len(args)==1):
             self.printHelp()
@@ -23,7 +23,7 @@ class ArgHandler():
                 self.printHelp()
             if (arg=="-l"):
                 self.printTotalLines()
-            if(arg=="-ld"):
+            if(arg=="-lf"):
                 self.printFilesWithLines()
 
 
