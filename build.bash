@@ -2,14 +2,15 @@
 # This is a bash file to help you build the project
 #This will create the binary and place it in the /usr/bin folder and set the environment variable so you only need to write Linecounter in your terminal
 
-function installPy {
+installPy ()
+{
     echo "Do you want to install python 3? (y/n)"
     read varname
     if [$varname == "y"]
     then
         sudo apt update
         sudo apt install python3-pip
-    if
+    fi
 }
 
 command -v python >/dev/null 2>&1 || { 
