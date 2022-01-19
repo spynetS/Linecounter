@@ -4,7 +4,7 @@
 
 installPy ()
 {
-    echo "Do you want to install python 3? (y/n)"
+    echo "It seems you don't have python3. Do you want to install python 3? (y/n)"
     read varname
     if [[ $varname = y* ]]
     then
@@ -32,5 +32,10 @@ $PYINSTALLER --onefile ./src/main.py
 sudo cp ./dist/main /usr/bin/linecounter
 
 export linecounter=/user/bin/linecounter 
-
+echo ""
+echo ""
+echo ""
 echo "Thank you for installing Linecounter"
+echo ""
+echo ""
+echo ""
