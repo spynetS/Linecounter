@@ -12,31 +12,35 @@ class FolderReader:
         self.ignore_sufix = ignore_sufix;
         self.ignore_folders = ignore_folders;
 
-    
+    def countLines(self,files,path,filename):
+        currentFile=FileClass()
+        currentFile = FileClass(path+filename)
+        file = open(path+filename,("rb"))
+        with open(path+filename,("rb")) as f:
+            currentFile.increase(len(f.readlines()))
+
+
+        files.append(currentFile)
+        
+        return files;
+
     def readFolder(self,path):
         files = []
         currentFile=FileClass()
         for filename in os.listdir(path):
+            # sufix is the fileextension
             sufix = pathlib.Path(filename).suffix
+          
             if(sufix!=""):
+               
                 if(sufix in self.valid_sufix and len(self.valid_sufix)!=0):
-                    currentFile = FileClass(path+filename)
-                    file = open(path+filename,("rb"))
-                    for line in file:
-                        currentFile.increase()
-                    files.append(currentFile)
+                    files = self.countLines(files,path,filename)
+               
                 elif(sufix not in self.ignore_sufix and len(self.ignore_sufix)!=0):
-                    currentFile = FileClass(path+filename)
-                    file = open(path+filename,("rb"))
-                    for line in file:
-                        currentFile.increase()
-                    files.append(currentFile)
+                   files = self.countLines(files,path,filename)
+               
                 elif((len(self.ignore_sufix)==0)and (len(self.valid_sufix)==0)):
-                    currentFile = FileClass(path+filename)
-                    file = open(path+filename,("rb"))
-                    for line in file:
-                        currentFile.increase()
-                    files.append(currentFile)
+                    files = self.countLines(files,path)
             
             elif(sufix ==""):
                 try:

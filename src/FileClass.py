@@ -5,7 +5,9 @@ class FileClass:
         self.linecount=linecount
         self.filename=filename
 
-    def increase(self):
-        self.linecount+=1;
+    def increase(self,amount=1):
+        self.linecount+=amount;
+
+    
     def __str__(self):
         return ("filename: "+self.filename+" linecount: "+str(self.linecount))
