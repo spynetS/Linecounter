@@ -19,7 +19,6 @@ class FolderReader:
         with open(path+filename,("rb")) as f:
             currentFile.increase(len(f.readlines()))
 
-
         files.append(currentFile)
         
         return files;
@@ -40,7 +39,7 @@ class FolderReader:
                    files = self.countLines(files,path,filename)
                
                 elif((len(self.ignore_sufix)==0)and (len(self.valid_sufix)==0)):
-                    files = self.countLines(files,path)
+                    files = self.countLines(files,path,filename)
             
             elif(sufix ==""):
                 try:
