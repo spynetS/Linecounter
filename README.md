@@ -5,6 +5,11 @@ Linecounter is a simple python program to count your lines of your source code i
 ## Description
 
 Linecounter is a small python program that helps you count the amount of lines in your source code (it works on any files) 
+ 
+ <a href="">
+    <img src="images/show1.png" alt="Logo" width="300">
+  </a>
+
 
 ## Getting Started
 
