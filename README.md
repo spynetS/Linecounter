@@ -6,7 +6,7 @@ Linecounter is a simple python program to count your lines of your source code i
 
 Linecounter is a small python program that helps you count the amount of lines in your source code (it works on any files) 
  
- <a href="">
+ <a href="https://github.com/spynetS/Linecounter/blob/main/images/show1.png">
     <img src="images/show1.png" alt="Logo" width="300">
   </a>
 
@@ -32,25 +32,32 @@ that you have to copy the value and and adding it to the path varable
 
 * List the total lines in all files and subfolders
 ```
-Linecounter -l
+lctr -l
 ```
 * List the total lines in all files and subfolders with curtain file extensions
 ```
-Linecounter -l -su .py .txt
+lctr -l -su .py .txt
 ```
 * List all files with their linecounts in all files and subfolders
 ```
-Linecounter -lf
+lctr -lf
 ```
 * List all files with their linecounts in all files and subfolders with curtain file extensions
 ```
-Linecounter -lf -su .py .txt
+lctr -lf -su .py .txt
 ```
 * Set starting folder 
 ```
-Linecounter -lf -p ../src -su .py .txt
+lctr -lf -p ../src/ -su .py .txt
 ```
-
+* Ignore filextensions 
+```
+lctr -lf -isu .py
+```
+* Ignore directory 
+```
+lctr -lf -id ./.git/
+```
 ## Help
 
 
