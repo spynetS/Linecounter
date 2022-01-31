@@ -22,7 +22,7 @@ Linecounter is a small python program that helps you count the amount of lines i
 * Linux
 [Download](https://github.com/spynetS/Linecounter.git) the src code and and run the build.bash file
 This will create the binary and place it in the /usr/bin folder and set the environment variable
-so you only need to write Linecounter in your terminal
+so you only need to write lctr in your terminal
 
 * Windows
 [Download](https://github.com/spynetS/Linecounter.git) the src code and and run the build.bat file
