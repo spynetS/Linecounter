@@ -67,7 +67,7 @@ lctr -lf -id ./.git/
 
 Contributors names and contact info
 
-* [spynetsS](https://github.com/spynetS)
+* [spynetS](https://github.com/spynetS)
   
 ## Version History
 
