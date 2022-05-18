@@ -13,18 +13,19 @@ installPy ()
     fi
 }
 
-command -v python >/dev/null 2>&1 || { 
+command -v python >/dev/null 2>&1 || {
     installPy
-    
+
 }
-command -v python3 >/dev/null 2>&1 || { 
+command -v python3 >/dev/null 2>&1 || {
     installPy
 }
 
 
 pip install pyinstaller
 
-PYINSTALLER=$(sudo find / -xdev -name "pyinstaller" -print -quit)
+#PYINSTALLER=$(sudo find / -xdev -name "pyinstaller" -print -quit)
+PYINSTALLER=pyinstaller
 echo $PYINSTALLER
 
 $PYINSTALLER --onefile ./src/main.py
