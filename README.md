@@ -20,6 +20,11 @@ Linecounter is a small python program that helps you count the amount of lines i
 
 ### Installing
 * Linux
+
+You can download it with yay from aur
+```yay -S linecounter-git```
+https://aur.archlinux.org/packages/linecounter-git
+
 [Download](https://github.com/spynetS/Linecounter.git) the src code and and run the build.bash file
 This will create the binary and place it in the /usr/bin folder and set the environment variable
 so you only need to write lctr in your terminal
