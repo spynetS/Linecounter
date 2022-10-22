@@ -24,8 +24,8 @@ command -v python3 >/dev/null 2>&1 || {
 
 pip install pyinstaller
 
-#PYINSTALLER=$(sudo find / -xdev -name "pyinstaller" -print -quit)
-PYINSTALLER=pyinstaller
+PYINSTALLER=$(sudo find / -xdev -name "pyinstaller" -print -quit)
+#PYINSTALLER=pyinstaller
 echo $PYINSTALLER
 
 $PYINSTALLER --onefile ./src/main.py
