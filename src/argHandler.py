@@ -5,7 +5,7 @@ from folderReader import FolderReader
 
 class ArgHandler():
     
-    project_path = "./"
+    project_path = ["./"]
     line_counter = 0
     args = []
     folderReader = FolderReader([],[],["./.git","./src/__pycache__"])
@@ -13,7 +13,7 @@ class ArgHandler():
     def __init__(self,args):
         self.args= args
         self.folderReader.valid_sufix=self.readArgs("-su")
-        self.get_path()
+        self.setPath(self.readArgs("-p"))
         self.folderReader.ignore_folders= self.readArgs("-id")
         self.folderReader.ignore_sufix= self.readArgs("-isu")
         if(len(args)==1):
@@ -44,10 +44,12 @@ class ArgHandler():
 
     def get_path(self):
         i = 1
+        paths = []
         for arg in self.args:
             if(arg =="-p"):
-                self.setPath(self.args[i])
+                paths.append(self.args[i])
             i+=1
+        self.setPath(paths)
     
 
     def printHelp(self):
@@ -71,20 +73,24 @@ class ArgHandler():
         print("         will print files with total lines of all files")
 
     def printTotalLines(self):
-        for file in self.folderReader.readFolder(self.project_path):
-            self.line_counter += file.linecount
+        for path in self.project_path:
+            for file in self.folderReader.readFolder(path):
+                self.line_counter += file.linecount
         print("total: "+str(self.line_counter))
 
     def printFilesWithLines(self):
-        for file in self.folderReader.readFolder(self.project_path):
-            
-            tab = 60-len(file.filename) if 60-len(file.filename)>0 else 1;
-            
-            print(file.filename+(tab*" ")+str(file.linecount)+" lines")
-            
-            self.line_counter += file.linecount
+        for path in self.project_path:
+
+            for file in self.folderReader.readFolder(path):
+                
+                tab = 60-len(file.filename) if 60-len(file.filename)>0 else 1;
+                
+                print(file.filename+(tab*" ")+str(file.linecount)+" lines")
+                
+                self.line_counter += file.linecount
         
         print("total: "+str(self.line_counter))
 
     def setPath(self,path):
+        print(path)
         self.project_path = path
