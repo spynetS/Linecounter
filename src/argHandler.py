@@ -55,7 +55,7 @@ class ArgHandler():
     def printHelp(self):
         print()
         print("-l prints the total amount of lines")
-        print("-p sets the origin path")
+        print("-p followed by paths is where we look")
         print("-su followed file extensions (.py .txt) if you want to specify which files to list+")
         print("-id followed by foldersoruces will ignore the folders (./folder/) ")
         print("-isu followed by suffixes will ignore the files with that suffixes")
@@ -92,5 +92,4 @@ class ArgHandler():
         print("total: "+str(self.line_counter))
 
     def setPath(self,path):
-        print(path)
         self.project_path = path
