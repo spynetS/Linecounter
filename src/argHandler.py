@@ -4,7 +4,7 @@ from FileClass import FileClass
 from folderReader import FolderReader
 
 class ArgHandler():
-    
+
     project_path = ["./"]
     line_counter = 0
     args = []
@@ -50,7 +50,7 @@ class ArgHandler():
                 paths.append(self.args[i])
             i+=1
         self.setPath(paths)
-    
+
 
     def printHelp(self):
         print()
@@ -82,14 +82,15 @@ class ArgHandler():
         for path in self.project_path:
 
             for file in self.folderReader.readFolder(path):
-                
+
                 tab = 60-len(file.filename) if 60-len(file.filename)>0 else 1;
-                
+
                 print(file.filename+(tab*" ")+str(file.linecount)+" lines")
-                
+
                 self.line_counter += file.linecount
-        
+
         print("total: "+str(self.line_counter))
 
     def setPath(self,path):
-        self.project_path = path
+        if len(path) > 0:
+            self.project_path = path
