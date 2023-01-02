@@ -12,10 +12,10 @@ class ArgHandler():
 
     def __init__(self,args):
         self.args= args
-        self.folderReader.valid_sufix=self.readArgs("-su")
+        self.folderReader.valid_sufix=self.readArgs("-ex")
         self.setPath(self.readArgs("-p"))
         self.folderReader.ignore_folders= self.readArgs("-id")
-        self.folderReader.ignore_sufix= self.readArgs("-isu")
+        self.folderReader.ignore_sufix= self.readArgs("-iex")
 
         lf = True
         for arg in args:
@@ -56,16 +56,16 @@ class ArgHandler():
 
     def printHelp(self):
         print()
-        print("-l prints the total amount of lines")
-        print("-p followed by paths is where we look")
-        print("-su followed file extensions (.py .txt) if you want to specify which files to list+")
-        print("-id followed by foldersoruces will ignore the folders (./folder/) ")
-        print("-isu followed by suffixes will ignore the files with that suffixes")
+        print("-l (lines) prints the total amount of lines")
+        print("-p (paths) followed by paths is where we look")
+        print("-ex (extension) followed file extensions (.py .txt) if you want to specify which files to list+")
+        print("-id (ignore folders) followed by foldersoruces will ignore the folders (./folder/) ")
+        print("-iex (ignore extension) followed by suffixes will ignore the files with that suffixes")
         print()
-        print("example 1: -l -su .py")
+        print("example 1: -l -ex .py")
         print("         will print total lines of all .py files")
         print()
-        print("example 2: -lf -su .py")
+        print("example 2: -lf -ex .py")
         print("         will print files with total lines of all .py files")
         print()
         print("example 3: -l")
