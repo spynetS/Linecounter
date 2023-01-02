@@ -20,7 +20,7 @@ class FolderReader:
             currentFile.increase(len(f.readlines()))
 
         files.append(currentFile)
-        
+
         return files;
 
     def readFolder(self,path):
@@ -29,18 +29,18 @@ class FolderReader:
         for filename in os.listdir(path):
             # sufix is the fileextension
             sufix = pathlib.Path(filename).suffix
-          
+
             if(sufix!=""):
-               
+
                 if(sufix in self.valid_sufix and len(self.valid_sufix)!=0):
                     files = self.countLines(files,path,filename)
-               
+
                 elif(sufix not in self.ignore_sufix and len(self.ignore_sufix)!=0):
                    files = self.countLines(files,path,filename)
-               
+
                 elif((len(self.ignore_sufix)==0)and (len(self.valid_sufix)==0)):
                     files = self.countLines(files,path,filename)
-            
+
             elif(sufix ==""):
                 try:
                     if(path+filename+"/" not in self.ignore_folders):

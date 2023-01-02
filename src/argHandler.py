@@ -3,16 +3,21 @@ import pathlib
 from FileClass import FileClass
 from folderReader import FolderReader
 
-class ArgHandler():
+class ArgHandler:
 
     project_path = ["./"]
+    common_extensions = [".py", ".c", ".java", ".cpp", ".sh"]
     line_counter = 0
     args = []
     folderReader = FolderReader([],[],["./.git","./src/__pycache__"])
 
     def __init__(self,args):
         self.args= args
-        self.folderReader.valid_sufix=self.readArgs("-ex")
+        self.folderReader.valid_sufix = self.readArgs("-ex")
+        #no extention set
+        if( len(self.folderReader.valid_sufix) == 0 ):
+            self.folderReader.valid_sufix = self.common_extensions
+
         self.setPath(self.readArgs("-p"))
         self.folderReader.ignore_folders= self.readArgs("-id")
         self.folderReader.ignore_sufix= self.readArgs("-iex")
