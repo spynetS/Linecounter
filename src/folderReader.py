@@ -32,13 +32,7 @@ class FolderReader:
 
             if(sufix!=""):
 
-                if(sufix in self.valid_sufix and len(self.valid_sufix)!=0):
-                    files = self.countLines(files,path,filename)
-
-                elif(sufix not in self.ignore_sufix and len(self.ignore_sufix)!=0):
-                   files = self.countLines(files,path,filename)
-
-                elif((len(self.ignore_sufix)==0)and (len(self.valid_sufix)==0)):
+                if sufix in self.valid_sufix and sufix not in self.ignore_sufix:
                     files = self.countLines(files,path,filename)
 
             elif(sufix ==""):
