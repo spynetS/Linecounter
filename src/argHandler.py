@@ -16,15 +16,16 @@ class ArgHandler():
         self.setPath(self.readArgs("-p"))
         self.folderReader.ignore_folders= self.readArgs("-id")
         self.folderReader.ignore_sufix= self.readArgs("-isu")
-        if(len(args)==1):
-            self.printHelp()
+
+        lf = True
         for arg in args:
-            if(arg=="-h"):
+            if(arg=="-h" or arg=="--help"):
                 self.printHelp()
             if (arg=="-l"):
                 self.printTotalLines()
-            if(arg=="-lf"):
-                self.printFilesWithLines()
+                lf = False
+        if(lf):
+            self.printFilesWithLines()
 
 
     def readArgs(self,tag):
