@@ -21,6 +21,7 @@ class ArgHandler():
         for arg in args:
             if(arg=="-h" or arg=="--help"):
                 self.printHelp()
+                lf = False
             if (arg=="-l"):
                 self.printTotalLines()
                 lf = False
