@@ -6,7 +6,7 @@ from folderReader import FolderReader
 class ArgHandler:
 
     project_path = ["./"]
-    common_extensions = [".py", ".c", ".java", ".cpp", ".sh"]
+    common_extensions = [".py", ".c", ".java", ".cpp", ".sh",".js",".jsx",".css", ".html"]
     line_counter = 0
     args = []
     folderReader = FolderReader([],[],["./.git","./src/__pycache__"])
