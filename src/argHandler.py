@@ -121,10 +121,11 @@ class ArgHandler:
 
             for file in self.folderReader.readFolder(path):
 
-                tab = 60-len(file.filename) if 60-len(file.filename)>0 else 1;
+                tab = self.folderReader.largestPath+10-len(file.filename) if self.folderReader.largestPath-len(file.filename) + 5>0 else 1;
 
                 print(file.filename+(tab*" ")+str(file.linecount)+" lines")
 
+                self.line_counter += file.linecount
 
 
     def setPath(self,path):
