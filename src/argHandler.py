@@ -131,11 +131,9 @@ class ArgHandler:
 
         files = {k: v for k, v in sorted(files.items(), key=lambda item: item[1])}
         for file in files:
-            print(len(file))
 
             spaces = larestName + 5 - len(file)
             tab = spaces if spaces > 0 else 1;
-            print(tab)
             print(file+(tab*" ")+str(files[file])+" lines")
 
     def setPath(self,path):
