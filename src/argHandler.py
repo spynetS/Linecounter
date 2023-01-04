@@ -9,9 +9,10 @@ class ArgHandler:
     common_extensions = [".py", ".c", ".java", ".cpp", ".sh",".js",".jsx",".css", ".html"]
     line_counter = 0
     args = []
-    folderReader = FolderReader([],[],["./.git","./src/__pycache__"])
+    default_ignores = ["./.git","./src/__pycache__"]
 
     def __init__(self,args):
+        self.folderReader = FolderReader([],[],self.default_ignores)
         self.args= args
         self.folderReader.valid_sufix = self.readArgs("-ex")
         #no extention set
@@ -19,8 +20,9 @@ class ArgHandler:
             self.folderReader.valid_sufix = self.common_extensions
 
         self.setPath(self.readArgs("-p"))
-        self.folderReader.ignore_folders= self.readArgs("-id")
-        self.folderReader.ignore_sufix= self.readArgs("-iex")
+        self.folderReader.ignore_sufix = self.readArgs("-iex")
+        self.folderReader.ignore_folders=self.folderReader.ignore_folders+(self.readArgs("-ida"))
+        self.folderReader.valid_sufix = self.folderReader.valid_sufix+(self.readArgs("-exa"))
 
         lf = True
         for arg in args:
@@ -30,6 +32,16 @@ class ArgHandler:
             if (arg=="-l"):
                 self.printTotalLines()
                 lf = False
+            if (arg=="-c"):
+                self.categorize()
+                lf = False
+            if (arg=="-a"):
+                self.folderReader.valid_sufix = []
+            if(arg=='-id'):
+                self.folderReader.ignore_folders = self.readArgs("-id")
+            if(arg=='-lf'):
+                self.printFilesWithLines()
+
         if(lf):
             self.printFilesWithLines()
 
@@ -39,7 +51,7 @@ class ArgHandler:
         sufixes = []
 
         for arg in self.args:
-            if("-" in arg):
+            if(arg[0] == "-"):
                 sufixreader = False
                 if(arg == tag):
                     sufixreader = True
@@ -63,9 +75,13 @@ class ArgHandler:
         print()
         print("-l (lines) prints the total amount of lines")
         print("-p (paths) followed by paths is where we look")
-        print("-ex (extension) followed file extensions (.py .txt) if you want to specify which files to list+")
-        print("-id (ignore folders) followed by foldersoruces will ignore the folders (./folder/) ")
+        print("-ex (extension) followed file extensions (.py .txt) will override the default ones",self.common_extensions)
+        print("-exa (extension) followed file extensions (.py .txt) will add that extetion to counters, the default ones",self.common_extensions)
+        print("-a will override all default extentions ",self.common_extensions, "and will count all types of files")
+        print("-id (ignore folders) followed by foldersoruces will ignore the folders (./folder/) default is", self.default_ignores)
+        print("-ida (ignore folders) followed by foldersoruces will add that folder to the ignored ones  ")
         print("-iex (ignore extension) followed by suffixes will ignore the files with that suffixes")
+        print("-c (categorize) will count the files and output the total amount of lines in every extention")
         print()
         print("example 1: -l -ex .py")
         print("         will print total lines of all .py files")
@@ -85,6 +101,21 @@ class ArgHandler:
                 self.line_counter += file.linecount
         print("total: "+str(self.line_counter))
 
+    def categorize(self):
+        types = {}
+        for path in self.project_path:
+            for file in self.folderReader.readFolder(path):
+                su = pathlib.Path(file.filename).suffix
+                if su in types:
+                    types[su] = types[su] + file.linecount
+                else:
+                    types[su] = file.linecount
+
+        for su in types:
+            tab = 10-len(su)
+            print(su,(tab*" "),types[su]," lines")
+
+
     def printFilesWithLines(self):
         for path in self.project_path:
 
@@ -94,10 +125,12 @@ class ArgHandler:
 
                 print(file.filename+(tab*" ")+str(file.linecount)+" lines")
 
-                self.line_counter += file.linecount
 
-        print("total: "+str(self.line_counter))
 
     def setPath(self,path):
         if len(path) > 0:
-            self.project_path = path
+            if(path[0][len(path)-1] != "/"):
+                self.project_path = [(path[0]+"/")]
+            else:
+                self.project_path = path
+
