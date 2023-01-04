@@ -7,7 +7,6 @@ class FolderReader:
     valid_sufix = []
     ignore_sufix = []
     ignore_folders = []
-    largestPath = 0;
 
     def __init__(self,valid_sufix=[],ignore_sufix=[],ignore_folders=[]):
         self.valid_sufix = valid_sufix;
@@ -26,7 +25,6 @@ class FolderReader:
         return files;
 
     def readFolder(self,path):
-        if(len(path) > self.largestPath): self.largestPath = len(path)
         files = []
         currentFile=FileClass()
         for filename in os.listdir(path):

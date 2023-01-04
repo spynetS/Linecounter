@@ -41,6 +41,7 @@ class ArgHandler:
                 self.folderReader.ignore_folders = self.readArgs("-id")
             if(arg=='-lf'):
                 self.printFilesWithLines()
+                lf = False
 
         if(lf):
             self.printFilesWithLines()
@@ -118,19 +119,23 @@ class ArgHandler:
 
 
     def printFilesWithLines(self):
+
         files = {}
+        larestName = 0;
+
         for path in self.project_path:
-
             for file in self.folderReader.readFolder(path):
-
-
+                if len(file.filename) > larestName: larestName = len(file.filename)
                 files[file.filename] = file.linecount
-
                 self.line_counter += file.linecount
 
         files = {k: v for k, v in sorted(files.items(), key=lambda item: item[1])}
         for file in files:
-            tab = self.folderReader.largestPath+10-len(file) if self.folderReader.largestPath-len(file) + 5>0 else 1;
+            print(len(file))
+
+            spaces = larestName + 5 - len(file)
+            tab = spaces if spaces > 0 else 1;
+            print(tab)
             print(file+(tab*" ")+str(files[file])+" lines")
 
     def setPath(self,path):
