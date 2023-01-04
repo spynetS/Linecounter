@@ -111,22 +111,27 @@ class ArgHandler:
                 else:
                     types[su] = file.linecount
 
+        types = {k: v for k, v in sorted(types.items(), key=lambda item: item[1])}
         for su in types:
             tab = 10-len(su)
             print(su,(tab*" "),types[su]," lines")
 
 
     def printFilesWithLines(self):
+        files = {}
         for path in self.project_path:
 
             for file in self.folderReader.readFolder(path):
 
-                tab = self.folderReader.largestPath+10-len(file.filename) if self.folderReader.largestPath-len(file.filename) + 5>0 else 1;
 
-                print(file.filename+(tab*" ")+str(file.linecount)+" lines")
+                files[file.filename] = file.linecount
 
                 self.line_counter += file.linecount
 
+        files = {k: v for k, v in sorted(files.items(), key=lambda item: item[1])}
+        for file in files:
+            tab = self.folderReader.largestPath+10-len(file) if self.folderReader.largestPath-len(file) + 5>0 else 1;
+            print(file+(tab*" ")+str(files[file])+" lines")
 
     def setPath(self,path):
         if len(path) > 0:
