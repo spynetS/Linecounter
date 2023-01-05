@@ -22,7 +22,9 @@ Linecounter is a small python program that helps you count the amount of lines i
 * Linux
 
 You can download it with yay from aur
+
 ```yay -S linecounter-git```
+
 https://aur.archlinux.org/packages/linecounter-git
 
 [Download](https://github.com/spynetS/Linecounter.git) the src code and and run the build.bash file
@@ -36,33 +38,21 @@ that you have to copy the value and and adding it to the path varable
 
 ### Executing program
 
-* List the total lines in all files and subfolders
-```
-lctr -l
-```
-* List the total lines in all files and subfolders with curtain file extensions
-```
-lctr -l -su .py .txt
-```
+Program starts by ignoring theise folders ```['./.git', './src/__pycache__']```
+The default extentions counting are ```['.py', '.c', '.java', '.cpp', '.sh', '.js', '.jsx', '.css', '.html']```
+
 * List all files with their linecounts in all files and subfolders
 ```
-lctr -lf
+lctr
 ```
-* List all files with their linecounts in all files and subfolders with curtain file extensions
+* Help
 ```
-lctr -lf -su .py .txt
+lctr -
 ```
-* Set starting folder 
+
+## Example
 ```
-lctr -lf -p ../src/ -su .py .txt
-```
-* Ignore filextensions 
-```
-lctr -lf -isu .py
-```
-* Ignore directory 
-```
-lctr -lf -id ./.git/
+lctr -id ./node_modules -lf -c -l
 ```
 ## Help
 
@@ -73,16 +63,10 @@ lctr -lf -id ./.git/
 Contributors names and contact info
 
 * [spynetS](https://github.com/spynetS)
-  
-## Version History
 
-
-* 0.1
-    * Initial Release
 
 ## License
 
 This project is licensed under the [MIT] License - see the LICENSE.md file for details
 
-## Acknowledgments
 
