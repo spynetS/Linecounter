@@ -51,10 +51,10 @@ lctr -
 
 ## Examples
 <a href="https://github.com/spynetS/Linecounter/blob/main/images">
-    <img src="images/all counters.png" alt="Logo" width="300">
-    <img src="images/show4.png" alt="Logo"        width="300">
-    <img src="images/show5.png" alt="Logo"        width="300">
-    <img src="images/override ex.png" alt="Logo"  width="300">
+    <img src="images/all counters.png" alt="Logo" width="1000">
+    <img src="images/show4.png" alt="Logo"        width="1000">
+    <img src="images/show5.png" alt="Logo"        width="1000">
+    <img src="images/override ex.png" alt="Logo"  width="1000">
  </a>
   
 ## Help
