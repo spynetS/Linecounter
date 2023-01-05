@@ -8,7 +8,6 @@ Linecounter is a small python program that helps you count the amount of lines i
  
  <a href="https://github.com/spynetS/Linecounter/blob/main/images/show1.png">
     <img src="images/show1.png" alt="Logo" height="500">
-    <img src="images/show2.png" alt="Logo" height="300" >
   </a>
 
 
@@ -50,10 +49,14 @@ lctr
 lctr -
 ```
 
-## Example
-```
-lctr -id ./node_modules -lf -c -l
-```
+## Examples
+<a href="https://github.com/spynetS/Linecounter/blob/main/images">
+    <img src="images/all counters.png" alt="Logo" height="100">
+    <img src="images/show4.png" alt="Logo"        height="100">
+    <img src="images/show5.png" alt="Logo"        height="100">
+    <img src="images/override ex.png" alt="Logo"  height="100">
+ </a>
+  
 ## Help
 
 
