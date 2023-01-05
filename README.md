@@ -56,9 +56,7 @@ lctr -
     <img src="images/show5.png" alt="Logo"        width="1000">
     <img src="images/override ex.png" alt="Logo"  width="1000">
  </a>
-  
-## Help
-
+ 
 
 
 ## Authors
