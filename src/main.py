@@ -26,79 +26,35 @@ extentions = {}
 files = []
 
 # create flags
-class Lf(Flag):
-    shortFlag = "-lf"
-    description="lists all files and their line counts"
+def lf():
+    for file in files: reader.printFile(file)
+def g():
+    for file in extentions:
+        print(file,(reader.longestEx-len(file))*" ",extentions[file])
 
-    def onCall(self, args):
-        global files
-        for file in files:
-            reader.printFile(file)
+def setList(addto,addfrom):
+    addto = []
+    for arg in args:
+        # if(arg[len(arg)-1] == "/"): arg = arg[:-1]
+        addto.append(arg)
 
-class T(Flag):
-    shortFlag = "-t"
-    description="outputs total of lines counted"
+Lf = Flag(shortFlag="-lf",description="lists all files and their line counts", onCall = lambda args: lf())
 
-    def onCall(self, args):
-        global total
-        print("total:",total)
+T = Flag(shortFlag="-t",description="outputs total of lines counted", onCall = lambda args:print("total:",total))
 
-class G(Flag):
-    shortFlag = "-g"
-    description="outputs total of lines grouped by extention"
+G = Flag(shortFlag="-g",description="outputs total of lines grouped by extention", onCall = lambda args: g())
 
-    def onCall(self, args):
-        global extentions
-        for file in extentions:
-            print(file,(reader.longestEx-len(file))*" ",extentions[file])
+Id = Flag(shortFlag="-id",description="sets folders to the ignored ones", onCall = lambda args: setList(reader.ignoreFolders,args))
 
-class Id(Flag):
-    shortFlag = "-id"
-    description="sets folders to the ignored ones"
+Ex = Flag("-ex",description="sets the extentions to be counted", onCall = lambda args:setList(reader.extentions, args))
 
-    def onCall(self, args):
-        global reader
-        reader.ignoredFolders = []
-        for arg in args:
-            if(arg[len(arg)-1] == "/"): arg = arg[:-1]
-            reader.ignoredFolders.append(arg)
+Iex = Flag("-iex",description="sets the extentions to not be counted", onCall = lambda args: setList(reader.ignoreExtentions,args))
 
-class Extentions(Flag):
-    shortFlag = "-ex"
-    description="sets the extentions to be counted"
-
-    def onCall(self, args):
-        global reader
-        reader.extentions = []
-        for arg in args:
-            if(arg[0] == "."): arg = arg[1:]
-            reader.extentions.append(arg)
-
-class IgnoredExtentions(Flag):
-    shortFlag = "-iex"
-    description="sets the extentions to be counted"
-
-    def onCall(self, args):
-        global reader
-        reader.ignoredExtentions = []
-        for arg in args:
-            if(arg[0] == "."): arg = arg[1:]
-            reader.ignoredExtentions.append(arg)
-
-class Paths(Flag):
-    shortFlag = "-p"
-    description="sets starting paths"
-
-    def onCall(self, args):
-        global reader
-        reader.paths = []
-        for arg in args:
-            if(arg[len(arg)-1] != "/"): arg = arg+"/"
-            reader.paths.append(arg)
+Paths = Flag("-p",description="sets starting paths", onCall = lambda args:setList(reader.paths, args))
 
 
 # checks flags
-options = FlagManager([Id(),Extentions(),IgnoredExtentions(),Paths()])
+options = FlagManager([Id,Ex,Iex,Paths])
 options.check()
 print(reader.ignoredExtentions)
 for file in reader.readFolders():
@@ -114,7 +70,7 @@ for file in reader.readFolders():
 
 files.sort()
 
-commands = FlagManager([Lf(), T(),G()])
+commands = FlagManager([Lf, T,G])
 commands.check()
 
 
