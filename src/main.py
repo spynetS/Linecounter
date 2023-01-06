@@ -50,8 +50,6 @@ Paths = Flag("-p",description="sets starting paths", onCall = lambda args:setPat
 options = FlagManager([Id,Ex,Iex,Paths])
 options.description = "Linecounter (lctr) is a simple linecounter program to count source code lines"
 
-options.check()
-
 if options.check() <= 0 and len(sys.argv) > 1 :
     p = sys.argv[len(sys.argv)-1]
     if(p[0] != "-") :
