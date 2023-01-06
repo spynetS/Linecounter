@@ -38,6 +38,8 @@ T = Flag(shortFlag="-t",description="outputs total of lines counted", onCall = l
 
 G = Flag(shortFlag="-g",description="outputs total of lines grouped by extention", onCall = lambda args: g())
 
+All = Flag(shortFlag="-a",description="sets extentions to all", onCall = lambda args: reader.extentions.append("*"))
+
 Id = Flag(shortFlag="-id",description="sets folders to the ignored ones", onCall = lambda args: setPath(reader.ignoredFolders,args))
 
 Ex = Flag("-ex",description="sets the extentions to be counted", onCall = lambda args:setList(reader.extentions, args))
@@ -47,7 +49,7 @@ Iex = Flag("-iex",description="sets the extentions to not be counted", onCall = 
 Paths = Flag("-p",description="sets starting paths", onCall = lambda args:setPath(reader.paths, args))
 
 # checks flags
-options = FlagManager([Id,Ex,Iex,Paths])
+options = FlagManager([Id,Ex,Iex,Paths,All])
 options.description = "Linecounter (lctr) is a simple linecounter program to count source code lines"
 
 if options.check() <= 0 and len(sys.argv) > 1 :
@@ -55,7 +57,7 @@ if options.check() <= 0 and len(sys.argv) > 1 :
     if(p[0] != "-") :
         reader.paths.clear()
         reader.paths.append(p)
-
+print(reader.extentions)
 for file in reader.readFolders():
     files.append(file)
 
@@ -69,7 +71,7 @@ for file in reader.readFolders():
 
 files.sort()
 
-commands = FlagManager([Lf, T,G])
+commands = FlagManager([Lf, T, G])
 if commands.check() <= 0 :
     lf()
     print("total:",total)

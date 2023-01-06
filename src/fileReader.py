@@ -41,7 +41,7 @@ class Reader:
         for filename in os.listdir(path):
             extention = pathlib.Path(path+filename).suffix[1:]
 
-            if os.path.isfile(path+filename) and extention not in self.ignoredExtentions and extention in self.extentions and path+filename not in self.ignoredFiles:
+            if os.path.isfile(path+filename) and extention not in self.ignoredExtentions and (extention in self.extentions or "*" in self.extentions) and path+filename not in self.ignoredFiles:
 
                 if len(path+filename) > self.longestPath: self.longestPath = len(path+filename)
                 if len(extention) > self.longestEx: self.longestEx = len(extention)
