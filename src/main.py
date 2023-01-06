@@ -57,7 +57,7 @@ if options.check() <= 0 and len(sys.argv) > 1 :
     if(p[0] != "-") :
         reader.paths.clear()
         reader.paths.append(p)
-print(reader.extentions)
+
 for file in reader.readFolders():
     files.append(file)
 
