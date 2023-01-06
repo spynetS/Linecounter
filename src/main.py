@@ -9,10 +9,6 @@ import sys
 
 reader = Reader()
 
-lf = False
-t = False
-g = False
-
 total = 0
 extentions = {}
 files = []
@@ -56,11 +52,11 @@ options.description = "Linecounter (lctr) is a simple linecounter program to cou
 
 options.check()
 
-# if options.check() <= 0 and len(sys.argv) > 1 :
-#     p = sys.argv[len(sys.argv)-1]
-#     if(p[0] != "-") :
-#         reader.paths.clear()
-#         reader.paths.append(p)
+if options.check() <= 0 and len(sys.argv) > 1 :
+    p = sys.argv[len(sys.argv)-1]
+    if(p[0] != "-") :
+        reader.paths.clear()
+        reader.paths.append(p)
 
 for file in reader.readFolders():
     files.append(file)
@@ -76,5 +72,7 @@ for file in reader.readFolders():
 files.sort()
 
 commands = FlagManager([Lf, T,G])
-if commands.check() <= 0 : lf()
+if commands.check() <= 0 :
+    lf()
+    print("total:",total)
 
