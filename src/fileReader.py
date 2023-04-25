@@ -16,7 +16,7 @@ class Reader:
         self.paths = ["./"]
         self.ignoredFiles = ["build.sh"]
         self.ignoredFolders = ["./node_modules","./venv"]
-        self.extentions = ["py", "sh", "java", "c", "cpp", "h", "html", "js","css","ts","bash"]
+        self.extentions = ["py", "sh", "java", "c", "cpp", "h", "html", "js","css","ts","bash", "cs"]
         self.ignoredExtentions = []
 
     def count(self, filename):
