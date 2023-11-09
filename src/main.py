@@ -14,6 +14,7 @@ total = 0
 extentions = {}
 files = []
 ignoreFiles=[]
+ignoreNames = []
 
 
 # create flags
@@ -44,6 +45,7 @@ def setPath(addto,addfrom):
 options = FlagManager([
     Flag(shortFlag="-a",description="sets extentions to all", onCall = lambda args: reader.extentions.append("*")),
     Flag(shortFlag="-id",description="sets folders to the ignored ones", onCall = lambda args: setPath(reader.ignoredFolders,args)),
+    Flag(shortFlag="-in",description="sets names to the ignore", onCall = reader.setIgnoreNames),
     Flag(shortFlag="-if",description="sets files to the ignored ones", onCall = setIgnoreFiles),
     Flag("-ex",description="sets the extentions to be counted", onCall = lambda args:setList(reader.extentions, args)),
     Flag("-iex",description="sets the extentions to not be counted", onCall = lambda args: setList(reader.ignoredExtentions,args)),

@@ -18,6 +18,11 @@ class Reader:
         self.ignoredFolders = ["./node_modules","./venv"]
         self.extentions = ["py", "sh", "java", "c", "cpp", "h", "html", "js","css","ts","bash", "cs"]
         self.ignoredExtentions = []
+        self.ignoreNames = ["node_modules"]
+
+    def setIgnoreNames(self,names):
+        print(names)
+        self.ignoreNames=names
 
     def count(self, filename):
         l = 0
@@ -25,12 +30,19 @@ class Reader:
             l += (len(f.readlines()))
         return l
 
+    def ignorePath(self,path):
+        for name in self.ignoreNames:
+            if name in path: return True
+        return False
+
     def readFolders(self):
         files = []
         for path in self.paths:
             if os.path.isfile(path):
                 file = File(path,self.count(path))
                 files.append(file)
+            elif self.ignorePath(path):
+                continue
             else:
                 if(path[len(path)-1] != "/"): path = path+"/"
                 files = files + self.readFolder(path)
@@ -51,7 +63,8 @@ class Reader:
                     files.append(File(path+filename,self.count(path+filename)))
 
                 if not os.path.isfile(path+filename) and path+filename+"/" not in self.ignoredFolders :
-                    files = files + self.readFolder(path+filename+"/")
+                    if not self.ignorePath(path):
+                        files = files + self.readFolder(path+filename+"/")
             return files
         except FileNotFoundError as e:
             print("skiping",e)
