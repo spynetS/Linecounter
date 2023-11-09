@@ -13,8 +13,14 @@ reader = Reader()
 total = 0
 extentions = {}
 files = []
+ignoreFiles=[]
+
 
 # create flags
+def setIgnoreFiles(args):
+    global ignoreFiles
+    ignoreFiles=args
+
 def lf():
     for file in files: reader.printFile(file)
 def g():
@@ -33,46 +39,46 @@ def setPath(addto,addfrom):
         if(arg[len(arg)-1] != "/"): arg = arg+"/"
         addto.append(arg)
 
-Lf = Flag(shortFlag="-lf",description="lists all files and their line counts", onCall = lambda args: lf())
-
-T = Flag(shortFlag="-t",description="outputs total of lines counted", onCall = lambda args:print("total:",total))
-
-G = Flag(shortFlag="-g",description="outputs total of lines grouped by extention", onCall = lambda args: g())
-
-All = Flag(shortFlag="-a",description="sets extentions to all", onCall = lambda args: reader.extentions.append("*"))
-
-Id = Flag(shortFlag="-id",description="sets folders to the ignored ones", onCall = lambda args: setPath(reader.ignoredFolders,args))
-
-Ex = Flag("-ex",description="sets the extentions to be counted", onCall = lambda args:setList(reader.extentions, args))
-
-Iex = Flag("-iex",description="sets the extentions to not be counted", onCall = lambda args: setList(reader.ignoredExtentions,args))
-
-Paths = Flag("-p",description="sets starting paths", onCall = lambda args:setPath(reader.paths, args))
 
 # checks flags
-options = FlagManager([Id,Ex,Iex,Paths,All])
+options = FlagManager([
+    Flag(shortFlag="-a",description="sets extentions to all", onCall = lambda args: reader.extentions.append("*")),
+    Flag(shortFlag="-id",description="sets folders to the ignored ones", onCall = lambda args: setPath(reader.ignoredFolders,args)),
+    Flag(shortFlag="-if",description="sets files to the ignored ones", onCall = setIgnoreFiles),
+    Flag("-ex",description="sets the extentions to be counted", onCall = lambda args:setList(reader.extentions, args)),
+    Flag("-iex",description="sets the extentions to not be counted", onCall = lambda args: setList(reader.ignoredExtentions,args)),
+    Flag("-p",description="sets starting paths", onCall = lambda args:setPath(reader.paths, args)),
+])
 options.description = "Linecounter (lctr) is a simple linecounter program to count source code lines"
 
+## sets the path to the last argument of it is not a flag
 if options.check() <= 0 and len(sys.argv) > 1 :
     p = sys.argv[len(sys.argv)-1]
     if(p[0] != "-") :
         reader.paths.clear()
         reader.paths.append(p)
 
-for file in reader.readFolders():
-    files.append(file)
+if "-h" in sys.argv:
+    for file in reader.readFolders():
+        if file.path not in ignoreFiles:
+            files.append(file)
 
-    ex = pathlib.Path(file.path).suffix
-    if(ex in extentions):
-        extentions[ex] = extentions[ex] + file.lines
-    else:
-        extentions[ex] = file.lines
+            ex = pathlib.Path(file.path).suffix
+            if(ex in extentions):
+                extentions[ex] = extentions[ex] + file.lines
+            else:
+                extentions[ex] = file.lines
 
-    total += file.lines
+            total += file.lines
 
-files.sort()
+    files.sort()
 
-commands = FlagManager([Lf, T, G])
+commands = FlagManager([
+    Flag(shortFlag="-lf",description="lists all files and their line counts", onCall = lambda args: lf()),
+    Flag(shortFlag="-t",description="outputs total of lines counted", onCall = lambda args:print("total:",total)),
+    Flag(shortFlag="-g",description="outputs total of lines grouped by extention", onCall = lambda args: g()),
+])
+
 if commands.check() <= 0 :
     lf()
     print("total:",total)
