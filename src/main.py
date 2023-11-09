@@ -58,7 +58,7 @@ if options.check() <= 0 and len(sys.argv) > 1 :
         reader.paths.clear()
         reader.paths.append(p)
 
-if "-h" not in sys.argv or "--help" not in sys.argv:
+if "-h" not in sys.argv and "--help" not in sys.argv:
     for file in reader.readFolders():
         if file.path not in ignoreFiles:
             files.append(file)
