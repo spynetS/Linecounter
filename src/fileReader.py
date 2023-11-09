@@ -38,20 +38,31 @@ class Reader:
 
     def readFolder(self,path):
         files = []
-        for filename in os.listdir(path):
-            extention = pathlib.Path(path+filename).suffix[1:]
+        try:
+            for filename in os.listdir(path):
+                extention = pathlib.Path(path+filename).suffix[1:]
 
-            if os.path.isfile(path+filename) and extention not in self.ignoredExtentions and (extention in self.extentions or "*" in self.extentions) and path+filename not in self.ignoredFiles:
+                if os.path.isfile(path+filename) and extention not in self.ignoredExtentions and (extention in self.extentions or "*" in self.extentions) and path+filename not in self.ignoredFiles:
 
-                if len(path+filename) > self.longestPath: self.longestPath = len(path+filename)
-                if len(extention) > self.longestEx: self.longestEx = len(extention)
+                    if len(path+filename) > self.longestPath: self.longestPath = len(path+filename)
+                    if len(extention) > self.longestEx: self.longestEx = len(extention)
 
-                # read lines
-                files.append(File(path+filename,self.count(path+filename)))
+                    # read lines
+                    files.append(File(path+filename,self.count(path+filename)))
 
-            if not os.path.isfile(path+filename) and path+filename+"/" not in self.ignoredFolders :
-                files = files + self.readFolder(path+filename+"/")
-        return files
+                if not os.path.isfile(path+filename) and path+filename+"/" not in self.ignoredFolders :
+                    files = files + self.readFolder(path+filename+"/")
+            return files
+        except FileNotFoundError as e:
+            print("skiping",e)
+            return []
+
+        
+        # except FileNotFoundError as e:
+        #     print(e, "skip that and continue counting")
+        # except TypeError as e:
+        #     print(e, "skip that and continue counting")
+
 
     def printFile(self, file):
         print(file.path,((self.longestPath-len(file.path))*" "),file.lines )
