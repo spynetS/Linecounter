@@ -1,12 +1,46 @@
 import os
 import pathlib
+#idk
+##idk
+##askd
+##asd
+##asjd
+
 
 class File:
     def __init__(self, path = "", lines=0):
         self.path = path
         self.lines = lines
+        self.comments = 0
+        self.empty = 0
+        self.count()
+
     def __lt__(self, idk):
         return self.lines > idk
+
+    def is_comment(self, line):
+        comments = ['#',"//","--"]
+        comment_blocks = ["/*","*/","'''","'''"] #start, followed by end
+
+        for comment in comments:
+            if line[0:len(comment)] == comment:
+                return True
+        # TODO
+        # Comment blocks
+        return False
+
+    def count(self):
+
+        with open(self.path,("r")) as f:
+            lines = f.readlines()
+            for i in lines:
+                if i == "\n":
+                    self.empty += 1
+                elif not self.is_comment(i):
+                    self.lines+=1
+                else:
+                    self.comments+=1
+
 
 class Reader:
 
@@ -16,7 +50,7 @@ class Reader:
         self.paths = ["./"]
         self.ignoredFiles = ["build.sh"]
         self.ignoredFolders = ["./node_modules","./venv"]
-        self.extentions = ["py", "sh", "java", "c", "cpp", "h", "html", "js","css","ts","bash", "cs"]
+        self.extentions = ["py", "sh", "java", "c", "cpp", "h", "html", "js","css","ts","bash", "cs","md","org","bat"]
         self.ignoredExtentions = []
         self.ignoreNames = ["node_modules"]
 
@@ -24,11 +58,6 @@ class Reader:
         print(names)
         self.ignoreNames=names
 
-    def count(self, filename):
-        l = 0
-        with open(filename,("rb")) as f:
-            l += (len(f.readlines()))
-        return l
 
     def ignorePath(self,path):
         for name in self.ignoreNames:
@@ -36,10 +65,13 @@ class Reader:
         return False
 
     def readFolders(self):
+        '''
+        returns files in folder
+        '''
         files = []
         for path in self.paths:
             if os.path.isfile(path):
-                file = File(path,self.count(path))
+                file = File(path)
                 files.append(file)
             elif self.ignorePath(path):
                 continue
@@ -60,7 +92,7 @@ class Reader:
                     if len(extention) > self.longestEx: self.longestEx = len(extention)
 
                     # read lines
-                    files.append(File(path+filename,self.count(path+filename)))
+                    files.append(File(path+filename))
 
                 if not os.path.isfile(path+filename) and path+filename+"/" not in self.ignoredFolders :
                     if not self.ignorePath(path):
@@ -78,5 +110,4 @@ class Reader:
 
 
     def printFile(self, file):
-        print(file.path,((self.longestPath-len(file.path))*" "),file.lines )
-
+        print(file.path,((self.longestPath-len(file.path))*" "),file.lines+file.empty+file.comments)
