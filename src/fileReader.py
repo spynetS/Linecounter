@@ -32,7 +32,12 @@ class File:
     def count(self):
 
         with open(self.path,("r")) as f:
-            lines = f.readlines()
+            try:
+                lines = f.readlines()
+            except:
+                # this is not correct but better then 0 i guess
+                lines = f.read().split("\n")
+
             for i in lines:
                 if i == "\n":
                     self.empty += 1
@@ -49,7 +54,7 @@ class Reader:
         self.longestEx = 0;
         self.paths = ["./"]
         self.ignoredFiles = ["build.sh"]
-        self.ignoredFolders = ["./node_modules","./venv"]
+        self.ignoredFolders = ["./node_modules","./.venv"]
         self.extentions = ["py", "sh", "java", "c", "cpp", "h", "html", "js","css","ts","bash", "cs","md","org","bat"]
         self.ignoredExtentions = []
         self.ignoreNames = ["node_modules"]
@@ -101,12 +106,6 @@ class Reader:
         except FileNotFoundError as e:
             print("skiping",e)
             return []
-
-        
-        # except FileNotFoundError as e:
-        #     print(e, "skip that and continue counting")
-        # except TypeError as e:
-        #     print(e, "skip that and continue counting")
 
 
     def printFile(self, file):
