@@ -54,7 +54,12 @@ class Reader:
             for filename in os.listdir(path):
                 extention = pathlib.Path(path+filename).suffix[1:]
 
-                if os.path.isfile(path+filename) and extention not in self.ignoredExtentions and (extention in self.extentions or "*" in self.extentions) and path+filename not in self.ignoredFiles:
+                ignore_extention = extention in self.ignoredExtentions
+                extention_exists = (extention in self.extentions or "*" in self.extentions)
+                ignore_file = path+filename not in self.ignoredFiles
+
+                # check if we should read this file
+                if os.path.isfile(path+filename) and not ignore_extention and extention_exists and ignore_file:
 
                     if len(path+filename) > self.longestPath: self.longestPath = len(path+filename)
                     if len(extention) > self.longestEx: self.longestEx = len(extention)
@@ -69,12 +74,6 @@ class Reader:
         except FileNotFoundError as e:
             print("skiping",e)
             return []
-
-        
-        # except FileNotFoundError as e:
-        #     print(e, "skip that and continue counting")
-        # except TypeError as e:
-        #     print(e, "skip that and continue counting")
 
 
     def printFile(self, file):
