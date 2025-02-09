@@ -54,8 +54,7 @@ class Reader:
         self.longestEx = 0;
         self.paths = ["./"]
         self.ignoredFiles = ["build.sh"]
-        self.ignoredFolders = ["./node_modules","./.venv"]
-        self.extentions = ["py", "sh", "java", "c", "cpp", "h", "html", "js","css","ts","bash", "cs","md","org","bat"]
+        self.extentions = ["py", "sh", "java", "c", "cpp", "h", "html", "js","css","ts","bash", "cs", "c3","md","org","bat"]
         self.ignoredExtentions = []
         self.ignoreNames = ["node_modules"]
 
@@ -91,7 +90,12 @@ class Reader:
             for filename in os.listdir(path):
                 extention = pathlib.Path(path+filename).suffix[1:]
 
-                if os.path.isfile(path+filename) and extention not in self.ignoredExtentions and (extention in self.extentions or "*" in self.extentions) and path+filename not in self.ignoredFiles:
+                ignore_extention = extention in self.ignoredExtentions
+                extention_exists = (extention in self.extentions or "*" in self.extentions)
+                ignore_file = path+filename not in self.ignoredFiles
+
+                # check if we should read this file
+                if os.path.isfile(path+filename) and not ignore_extention and extention_exists and ignore_file:
 
                     if len(path+filename) > self.longestPath: self.longestPath = len(path+filename)
                     if len(extention) > self.longestEx: self.longestEx = len(extention)
