@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 from flagser import *
 from fileReader import Reader
 import pathlib
