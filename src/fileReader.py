@@ -55,7 +55,7 @@ class Reader:
         self.paths = ["./"]
         self.ignoredFiles = ["build.sh"]
         self.ignoredFolders = ["node_modules",".venv"]
-        self.extentions = ["py", "sh", "java", "c", "cpp", "h", "html", "js","css","ts","bash", "cs", "c3","md","org","bat"]
+        self.extentions = ["py", "sh", "java", "c", "cpp", "h", "html", "js","css","ts","bash", "cs", "c3","md","org","bat", "odin", "lua"]
         self.ignoredExtentions = []
         self.ignoreNames = ["node_modules"]
 
